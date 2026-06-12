@@ -19,8 +19,9 @@ class log_kde():
     def calculate_ti(self, p_i):
         # construct t_i: using KL divergence in a different way
         scores = self.logPt @ p_i + np.log(self.pi)        # (n,)
-        t = np.exp(scores - logsumexp(scores))
-        return t
+        t = np.exp(scores - logsumexp(scores))             
+        # TODO: test bug with array shape
+        return t.flatten()
 
     def calculate_r(self, p_i):
         t = self.calculate_ti(p_i)
@@ -39,14 +40,14 @@ class log_kde():
     
     def calculate_R_mat(self):
         R = []
-        for p_i in self.Pt:
+        for p_i in tqdm(self.Pt):
             r = self.calculate_r(p_i)
             R.append(r)
         return np.vstack(R)
     
     def calculate_Q_mat(self):
         Q = []
-        for p_i in self.Pt:
+        for p_i in tqdm(self.Pt):
             q = self.calculate_q(p_i)
             Q.append(q)
         return np.vstack(Q)
