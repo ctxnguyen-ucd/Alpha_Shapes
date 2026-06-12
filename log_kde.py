@@ -20,7 +20,6 @@ class log_kde():
         # construct t_i: using KL divergence in a different way
         scores = self.logPt @ p_i + np.log(self.pi)        # (n,)
         t = np.exp(scores - logsumexp(scores))             
-        # TODO: test bug with array shape
         return t.flatten()
 
     def calculate_r(self, p_i):
@@ -35,7 +34,7 @@ class log_kde():
     def calculate_q(self, p_i):
         r = self.calculate_r(p_i)
         q_tilde = np.exp(r)
-        q = -np.log(q_tilde / q_tilde.sum())
+        q = q_tilde / q_tilde.sum()
         return q
     
     def calculate_R_mat(self):
