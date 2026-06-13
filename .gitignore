@@ -1,11 +1,6 @@
 MarkovChains/
 .DS_Store
-alpha_KDE_MD.ipynb
-alpha_shape_movie.ipynb
-alpha_shape_movie_NN.ipynb
-alpha_KDE_MD_coefficients_old.ipynb
-Q_analysis.ipynb
-Q_movie.ipynb
+test_notebooks/
 plots/
 dump/
 movies/
