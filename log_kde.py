@@ -16,6 +16,12 @@ class log_kde():
         log_kde_sum = np.log(sum([np.exp(-kl_div(p, row).sum()) for row in self.Pt])) # need to sum kl_div, returns array
         return log_kde_sum
 
+    def calculate_psi_c(self, p):
+        psi_p = self.compute_log_kde(p)
+        q = self.calculate_q(p) # q = T(p_i)
+        psi_c = psi_p + np.sum(kl_div(p, q))
+        return psi_c
+
     def calculate_ti(self, p_i):
         # construct t_i: using KL divergence in a different way
         scores = self.logPt @ p_i + np.log(self.pi)        # (n,)
