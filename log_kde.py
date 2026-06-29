@@ -13,11 +13,12 @@ class log_kde():
         self.logPt = np.log(self.Pt)
 
     def compute_log_kde(self, p) -> NDArray:
-        log_kde_sum = np.log(sum([np.exp(-kl_div(p, row).sum()) for row in self.Pt])) # need to sum kl_div, returns array
+        # TODO: multiply steady state i within sum
+        log_kde_sum = np.log(sum([pi * np.exp(-kl_div(p, row).sum()) for row, pi in zip(self.Pt, self.pi.flatten())])) # need to sum kl_div, returns array
         return log_kde_sum
 
     def calculate_psi_c(self, p):
-        psi_p = self.compute_log_kde(p)
+        psi_p = self.compute_log_kde(p) # log coodinates
         q = self.calculate_q(p) # q = T(p_i)
         psi_c = psi_p + np.sum(kl_div(p, q))
         return psi_c
