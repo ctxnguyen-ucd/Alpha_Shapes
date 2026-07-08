@@ -5,6 +5,7 @@ plots/
 dump/
 movies/
 random_images/
+applications_images
 __pycache__/
 *.dump
 *.mp4
