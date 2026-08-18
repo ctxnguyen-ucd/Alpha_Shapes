@@ -33,8 +33,8 @@ class log_kde():
         t = self.calculate_ti(p_i)
         r = np.zeros(shape=self.Pt[0].shape)
         # construct r
-        for t_i, log_p_i in zip(t, self.logPt):
-            r_i = t_i * log_p_i             # scalar * log(array) = array
+        for t_i, log_pt_i in zip(t, self.logPt):
+            r_i = t_i * log_pt_i             # scalar * log(array) = array
             r += r_i
         return r
 
