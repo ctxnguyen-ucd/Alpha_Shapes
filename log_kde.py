@@ -38,6 +38,15 @@ class log_kde():
             r += r_i
         return r
 
+    def calculate_q_new(self, p_i):
+        t = self.calculate_ti(p_i)
+        q = np.zeros(shape=self.Pt[0].shape)
+        # construct r
+        for t_i, pt_i in zip(t, self.Pt):
+            q_i = t_i * pt_i             # scalar * log(array) = array
+            q += q_i
+        return q
+
     def calculate_q(self, p_i):
         r = self.calculate_r(p_i)
         q_tilde = np.exp(r)
@@ -55,6 +64,13 @@ class log_kde():
         Q = []
         for p_i in tqdm(self.Pt):
             q = self.calculate_q(p_i)
+            Q.append(q)
+        return np.vstack(Q)
+
+    def calculate_Q_mat_new(self):
+        Q = []
+        for p_i in tqdm(self.Pt):
+            q = self.calculate_q_new(p_i)
             Q.append(q)
         return np.vstack(Q)
 
